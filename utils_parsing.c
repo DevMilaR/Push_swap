@@ -1,31 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_parsing.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lromano <lromano@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 15:33:19 by lromano           #+#    #+#             */
+/*   Updated: 2025/02/27 17:45:11 by lromano          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	int	result;
-	int	sign;
+	long	num;
+	int		isneg;
+	int		i;
 
-	result = 0;
-	sign = 1;
-	while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
-		str++;
-	if (*str == '-' || *str == '+')
+	num = 0;
+	isneg = 1;
+	i = 0;
+	while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '+'
+			|| str[i] == '\n' || str[i] == '\r'
+			|| str[i] == '\v' || str[i] == '\f'))
+		i++;
+	if (str[i] == '-')
 	{
-		if (*str == '-')
-		{
-			sign = -1;
-		}
-		str++;
+		isneg *= -1;
+		i++;
 	}
-	while (*str >= '0' && *str <= '9')
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		result = result * 10 + (*str - '0');
-		str++;
+		num = (num * 10) + (str[i] - '0');
+		i++;
 	}
-	return (sign * result);
-}
-
-int	ft_isdigit(int c)
-{
-	return ((c >= '0' && c <= '9'));
+	return (num * isneg);
 }
